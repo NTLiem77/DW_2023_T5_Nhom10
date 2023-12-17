@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fact KQXS with True Status Data</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+<div id="factData"></div>
+
+<script>
+    // Khi trang tải xong
+    $(document).ready(function () {
+        // Gửi yêu cầu Ajax khi trang tải xong
+        $.ajax({
+            url: '/api/fact-kqxs-true',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // Xử lý dữ liệu trả về
+                displayFactData(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+
+    // Hàm hiển thị dữ liệu
+    function displayFactData(data) {
+        // Lấy phần tử HTML có id="factData"
+        var factDataElement = $('#factData');
+
+        // Tạo HTML để hiển thị dữ liệu
+        var html = '<h2>Fact KQXS Data with True Status</h2><ul>';
+
+        // Duyệt qua từng dòng dữ liệu và thêm vào HTML
+        for (var i = 0; i < data.length; i++) {
+            html += '<li>' + JSON.stringify(data[i]) + '</li>';
+        }
+
+        html += '</ul>';
+
+        // Gán HTML vào phần tử
+        factDataElement.html(html);
+    }
+</script>
+
+</body>
+</html>
